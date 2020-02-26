@@ -1,5 +1,10 @@
 class TwoFer
-  def self.two_fer(name = 'you')
-    'One for %s, one for me.' % name
+  TWO_FER =
+    {
+      English: 'One for %<name>s, one for me.'
+    }
+    
+  def self.two_fer(name = 'you', language = :English)
+    TWO_FER[language] % { name: name }
   end
 end
