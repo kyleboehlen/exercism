@@ -5,16 +5,17 @@ require_relative 'gigasecond'
 # Common test data version: 1.1.0 5506bac
 class GigasecondTest < Minitest::Test
   def test_date_only_specification_of_time
-    # skip
     assert_equal Time.utc(2043, 1, 1, 1, 46, 40), Gigasecond.from(Time.utc(2011, 4, 25, 0, 0, 0))
 
     # test for gigasecond by passing DateTime obj
-    assert_equal DateTime.new(2043, 1, 1, 1, 46, 40).to_time.to_i, Gigasecond.from(DateTime.new(2011, 4, 25, 0, 0, 0)).to_i
+    assert_equal DateTime.new(2043, 1, 1, 1, 46, 40), Gigasecond.from(DateTime.new(2011, 4, 25, 0, 0, 0))
   end
 
   def test_second_test_for_date_only_specification_of_time
-    skip
     assert_equal Time.utc(2009, 2, 19, 1, 46, 40), Gigasecond.from(Time.utc(1977, 6, 13, 0, 0, 0))
+
+    # test for gigasecond by passing DateTime obj
+    assert_equal DateTime.new(2009, 2, 19, 1, 46, 40), Gigasecond.from(DateTime.new(1977, 6, 13, 0, 0, 0))
   end
 
   def test_third_test_for_date_only_specification_of_time
