@@ -21,6 +21,7 @@ end
 
 __END__
 
+=begin
 *****************************************************
 You got an error, which is exactly as it should be.
 This is the first step in the Test-Driven Development
@@ -41,3 +42,4 @@ Then run the test again.
 For more guidance as you work on this exercise, see
 GETTING_STARTED.md.
 *****************************************************
+=end
