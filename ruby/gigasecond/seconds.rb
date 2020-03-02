@@ -10,7 +10,7 @@ class Seconds
   public
 
   def +(other)
-    Seconds.new(seconds + other)
+    self.class.new(seconds + other)
   end
   def to_i
     seconds.to_i
