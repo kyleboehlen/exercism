@@ -25,16 +25,22 @@ class ResistorColor
   def self.code_from(color)
     BAND[color] # Hash method
   end
+
+  class << self
+    alias_method :color_code, :code_from
+  end
+end
+
+if defined? Minitest
+  require_relative 'custom_tests.rb'
 end
 
 if $PROGRAM_NAME == __FILE__
-  puts 'Benchmarking index function on array method...'
-  puts Benchmark.measure {
-    1_000_000.times { ResistorColor.color_code(ResistorColor::COLORS.sample) }
-  }
+  require 'benchmark/ips'
 
-  puts 'Benchmarking hash method...'
-  puts Benchmark.measure {
-    1_000_000.times { ResistorColor.map_color_code(ResistorColor::COLORS.sample) }
-  }
+  Benchmark.ips do |x|
+    x.report('Using Hash') { ResistorColor.code_from(ResistorColor::COLORS.sample) }
+    x.report('Using Array derived from Hash keys') { ResistorColor.index_of(ResistorColor::COLORS.sample) }
+    x.compare!
+  end
 end
