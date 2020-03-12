@@ -7,15 +7,11 @@ class Complement
   }
 
   def self.of_dna(strand)
-    compliment = ''
-    strand.each_char { |c| compliment << PAIRS[c].to_s }
-    compliment
+    strand.chars.map { |c| PAIRS[c].to_s }.join
   end
 
   def self.of_rna(strand)
-    compliment = ''
-    strand.each_char { |c| compliment << PAIRS.key(c).to_s }
-    compliment
+    strand.chars.map { |c| PAIRS.key(c).to_s }.join
   end
 end
 
