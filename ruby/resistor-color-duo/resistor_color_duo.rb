@@ -14,6 +14,7 @@ class ResistorColorDuo
     }
   
   def self.value(bands)
-    bands.map { |color| BAND[color].to_s }.join[0,2].to_i
+    # bands.select { |color| BAND.key?(color) }.take... could be used if you needed to validate input before mapping the array
+    bands.take(2).map { |color| BAND[color] }.join.to_i
   end
 end
