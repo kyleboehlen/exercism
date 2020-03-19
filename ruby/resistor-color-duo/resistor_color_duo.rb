@@ -14,7 +14,14 @@ class ResistorColorDuo
     }
   
   def self.value(bands)
-    # bands.select { |color| BAND.key?(color) }.take... could be used if you needed to validate input before mapping the array
-    bands.take(2).map { |color| BAND[color] }.join.to_i
+    bands.take(2)
+      .each { |color| validate(color) }
+      .map { |color| BAND[color] }
+      .join.to_i
   end
+
+  def self.validate(color)
+    raise ArgumentError.new('Invalid band color "%s"' % color) unless BAND.key?(color)
+  end
+  private_class_method :validate
 end

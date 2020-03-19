@@ -1,7 +1,7 @@
 require 'benchmark/ips'
 require_relative 'resistor_color_duo'
 
-module SymbolHash
+class BenchmarkResistorColorDuo
   BAND =
     {
       black:  0,
@@ -16,22 +16,21 @@ module SymbolHash
       white:  9,
     }
 
-  COLORS = ResistorColorDuo::BAND.keys
-  SYMBOLS = BAND.keys
-
-  def value_from_strings(bands)
-    bands.map { |color| BAND[color.to_sym].to_s }.join[0,2].to_i
+  def self.value(bands)
+    bands.take(2)
+      .each { |color| validate(color) }
+      .map { |color| BAND[color] }
+      .join.to_i
   end
 
-  def value_from_symbols(bands)
-    bands.map { |color| BAND[color].to_s }.join[0,2].to_i
+  def self.validate(color)
+    raise ArgumentError.new('Invalid band color "%s"' % color) unless BAND.key?(color)
   end
+  private_class_method :validate
 end
-ResistorColorDuo.extend SymbolHash
 
 Benchmark.ips do |x|
-  x.report('Using Strings as Keys Passing Strings') { ResistorColorDuo.value([SymbolHash::COLORS.sample, SymbolHash::COLORS.sample]) }
-  x.report('Using Symbols as Keys Passing Strings') { ResistorColorDuo.value_from_strings([SymbolHash::COLORS.sample, SymbolHash::COLORS.sample]) }
-  x.report('Using Symbols as Keys Passing Symbols') { ResistorColorDuo.value_from_symbols([SymbolHash::SYMBOLS.sample, SymbolHash::SYMBOLS.sample]) }
+  x.report('Using Strings as Keys') { ResistorColorDuo.value([ResistorColorDuo::BAND.keys.sample, ResistorColorDuo::BAND.keys.sample]) }
+  x.report('Using Symbols as Keys') { BenchmarkResistorColorDuo.value([BenchmarkResistorColorDuo::BAND.keys.sample, BenchmarkResistorColorDuo::BAND.keys.sample]) }
   x.compare!
 end
