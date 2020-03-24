@@ -7,11 +7,11 @@ class Complement
   }
 
   def self.of_dna(strand)
-    strand.chars.map { |c| PAIRS[c].to_s }.join
+    strand.chars.map { |c| PAIRS[c] }.join
   end
 
   def self.of_rna(strand)
-    strand.chars.map { |c| PAIRS.key(c).to_s }.join
+    strand.chars.map { |c| PAIRS.key(c) }.join
   end
 end
 
