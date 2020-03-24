@@ -13,15 +13,17 @@ end
 class Year
   using DivisibleIntegers
 
+  attr_reader :year
+
   def initialize(year)
     @year = year.to_i
   end
 
-  def self.leap?(year)
-    new(year).leap?
+  def leap?
+    @year.evenly_divisible_by?(4) && (@year.not_evenly_divisible_by?(100) || @year.evenly_divisible_by?(400))
   end
 
-  def leap?
-    @year.evenly_divisible_by?(400) || @year.evenly_divisible_by?(4) && @year.not_evenly_divisible_by?(100)
+  def self.leap?(year)
+    new(year).leap?
   end
 end
