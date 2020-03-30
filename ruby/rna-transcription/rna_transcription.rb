@@ -7,11 +7,11 @@ class Complement
   }
 
   def self.of_dna(strand)
-    strand.chars.map { |c| PAIRS[c] }.join
+    strand.gsub(Regexp.union(PAIRS.keys), PAIRS)
   end
 
   def self.of_rna(strand)
-    strand.chars.map { |c| PAIRS.key(c) }.join
+    strand.gsub(Regexp.union(PAIRS.values), PAIRS.invert)
   end
 end
 
